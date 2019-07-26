@@ -55,7 +55,7 @@ class Login extends Component {
     handleLogin(formVal).then(status => {
       console.log(status)
       if(status.success == 1){
-          const { getUserInfo} = this.props,{history} = this.context.router
+          const { history} = this.props = this.context.router
           history.replace('/new/workTrend')
           status
       }else {
@@ -65,17 +65,7 @@ class Login extends Component {
     })
   }
 
-  /*getUserInfo = ()=> {
-    this.setState({loading:true})
-    const { getUserInfo} = this.props,{history} = this.context.router
-    // 发送请求 调用接口获取用户信息
-    history.replace('/dashboard')
-    this.setState({loading:false})
-    getUserInfo().then(status =>{
-      this.setState({loading:false})
-      status && history.replace('/dashboard')
-    })
-  }*/
+
 
   render() {
     const { getFieldDecorator } = this.props.form

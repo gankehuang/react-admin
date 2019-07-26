@@ -2,7 +2,7 @@ import React from 'react'
 import {Layout, Icon, Popover,Avatar,Dropdown,Menu,Badge} from 'antd'
 import {connect} from 'react-redux'
 import {changeCollapsed} from '@/redux/actions'
-import {deleteToken,getUserInfo} from '@/redux/actions'
+import {deleteToken} from '@/redux/actions'
 
 import MenuList from './sider/Menu'
 import './index.less'
@@ -20,7 +20,7 @@ const LayoutHeader = props => {
 	let token = props.token ? props.token:historyToken
 
   if(!userInfo.roles){
-    getUserInfo()
+    console.log(userInfo)
   }
 
   const handleLogout =() => deleteToken()
@@ -131,6 +131,6 @@ const mapDispatchToProps = ({
     changeCollapsed(playload)
   },
   deleteToken:()=>deleteToken(),
-  getUserInfo:()=> getUserInfo()
+ // getUserInfo:()=> getUserInfo()
 })
 export default connect(mapStateToProps, mapDispatchToProps)(LayoutHeader)

@@ -39,9 +39,11 @@ const Main = ({ location }) => {
 
               )
             }
-            <Redirect
-                from='/'
-                to='/error/404'
+            <Redirect from='/'
+              to='/new/workTrend'
+            />
+            <Redirect from='/'
+              to='/error/404'
             />
 
           </Switch>

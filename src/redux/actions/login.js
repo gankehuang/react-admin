@@ -56,27 +56,8 @@ const deleteToken = ()=> dispatch=>{
   window.location = '#/login'
 }
 
-const getUserInfo = () => dispatch => {
-  return new Promise(reslove=> {
-    api.post('/getUserInfo').then(res => {
 
-      // 获取用户信息成功，将用户信息保存到全局状态树
-
-      if (res.data.success) {
-
-        localStorage.setItem('userInfo', JSON.stringify(res.data.datas))
-
-        dispatch({
-          type: SET_USERINFO,
-          playload: res.data.datas
-        })
-      }
-      reslove(res.data.success)
-    })
-  })
-}
 export {
   login,
-  getUserInfo,
   deleteToken
 }

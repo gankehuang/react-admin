@@ -1,4 +1,4 @@
-
+ 
 import Error401 from '@/views/error/401'
 import Error404 from '@/views/error/404'
 import NewWorkTrend from '@/views/new/workTrend'
