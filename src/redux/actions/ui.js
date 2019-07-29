@@ -56,12 +56,24 @@ const addTaglist = playload => (dispatch, getState) => {
     }
   })
 }
+//改变表格增加，删除模态框状态
+const chageModelState =  playload => ({
+  type: type.MODEL_STATE,
+  playload
+})
 
+//详情
+const changeDetail = playload => ({
+  type: type.CHANGE_DETAIL,
+  playload
+})
 
 export {
   changeIsMobile,
   changeCollapsed,
   addTaglist,
   cutTaglist,
-  emptyTaglist
+  emptyTaglist,
+  chageModelState,
+  changeDetail
 }

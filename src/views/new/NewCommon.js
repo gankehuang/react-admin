@@ -1,11 +1,14 @@
 /*eslint-disable*/
 import React,{Component} from 'react'
+import { connect } from 'react-redux'
 import { Table, Tag } from 'antd'
 import api from '@/axios'
 import global from '../../global'
 
+import Search from './Search'
 import {Pic} from './Pic'
 import Btn from './Btn'
+import Model from './Model'
 
 const b = <Tag color="#87d068">未推荐</Tag>
 const a = <Tag color="#f50">已推荐</Tag>
@@ -41,6 +44,7 @@ const columns = [{
 }, {
   title: '操作',
   dataIndex: 'Id',
+  width: '15%',
   render: (data, row, index) => {
     return <Btn id={data} content={row} />
   },
@@ -57,7 +61,9 @@ class newCommon extends Component {
     pagination: {},
     loading: false,
   }
-
+  componentDidMount() {
+    console.log(this.props)
+  }
   componentWillMount() {
     this.fetch()
   }
@@ -84,7 +90,6 @@ class newCommon extends Component {
     })
   }
   fetch = () => {
-    
     this.setState({ loading: true })
     api({
       url: global.API.DataManageService.GetAllData,
@@ -97,22 +102,29 @@ class newCommon extends Component {
       type: 'json',
     }).then(data => {
             console.log(data)
-      const pagination = { ...this.state.pagination }
+            const pagination = { ...this.state.pagination }
             const newData = JSON.parse(data.data.resultData)
-      pagination.total = newData.recordsTotal
-      this.setState({
-        loading: false,
-        data: JSON.parse(newData.data),
-        pagination,
-      })
+            pagination.total = newData.recordsTotal
+            this.setState({
+              loading: false,
+              data: JSON.parse(newData.data),
+              pagination,
+            })
     })
-  }
-
+  };
+  
   render() {
+    const rowSelection = {
+      onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      }
+    };
     return (
       <div className='shadow-radius'>
+          <Search /><br/>
           <Table
               bordered
+              rowSelection={rowSelection}
               columns={columns}
               dataSource={this.state.data}
               loading={this.state.loading}
@@ -120,9 +132,13 @@ class newCommon extends Component {
               pagination={this.state.pagination}
               rowKey={record => record.Id}
           />
+
+          <Model content={this.props.itemDetail} newType={this.props.newType} fetch={this.fetch} />
       </div>
     )
   }
 }
 
-export default newCommon
+const mapStateToProps = state => ({modelState: state.UI.modelState, itemDetail: state.UI.itemDetail})
+
+export default connect(mapStateToProps)(newCommon)

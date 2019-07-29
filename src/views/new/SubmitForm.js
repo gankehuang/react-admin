@@ -1,4 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { chageModelState } from '@/redux/actions'
+import api from '@/axios'
+import global from '../../global'
 import {
   Form,
   Input,
@@ -8,14 +12,23 @@ import {
   Icon,
   Select
 } from 'antd';
-import global from '../../global'
-
 
 class SubmitForm extends React.Component {
   constructor(props){
     super(props)
   }
-  state = {
+  
+  state = this.props.itemDetail.Title == ''? 
+    {
+      picList: [
+       
+      ],
+      fileList: [
+        
+      ]
+  }
+  :
+  {
       picList: [
         {
           uid: '-1',
@@ -35,15 +48,18 @@ class SubmitForm extends React.Component {
       ]
   }
   componentDidMount(){
-      //console.log(this.props.content)
+      console.log(this.props)
       //设置表单初始值
       let data = this.props.content
+      //console.log(data);
       this.props.form.setFieldsValue({
         Title: data.Title,
         Synopsis: data.Synopsis,
         Time: data.Time,
         Recommend: data.Recommend + ''
       });
+     
+      
       
   }
   //表单提交
@@ -61,10 +77,27 @@ class SubmitForm extends React.Component {
         sendData.Synopsis = values.Synopsis
         sendData.Time = values.Time
         sendData.Recommend = values.Recommend
+        sendData.Type = this.props.newType
         sendData.Content = values.Content[0].response ? JSON.parse(values.Content[0].response.resultData)[0].Url : values.Content[0].name
         sendData.Picture = values.Picture[0].response ? JSON.parse(values.Picture[0].response.resultData)[0].Url : values.Picture[0].name
         console.log(sendData)
-        //this.props.changeVisible({visible: false})
+
+        api({
+          url: global.API.DataManageService.AddorEditData,
+          params: {
+              'ID': this.props.itemDetail.Id,
+                'jsonStr': JSON.stringify(sendData)
+          },
+          method: 'get',
+          type: 'json',
+        }).then(data => {
+              console.log(data)
+              this.props.fetch()
+                
+        })
+
+        const { chageModelState } = this.props
+		    chageModelState(false)
       }
     });
   };
@@ -221,7 +254,14 @@ class SubmitForm extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({modelState: state.UI.modelState, itemDetail: state.UI.itemDetail})
+const mapDispatchToProps = dispatch => ({
+	chageModelState: playload => {
+	  dispatch(chageModelState(playload))
+	},
+})
+
 const Submit = Form.create({ name: 'validate_other' })(SubmitForm);
 
 //ReactDOM.render(<WrappedRegistrationForm />, mountNode);
-export default Submit
+export default connect(mapStateToProps, mapDispatchToProps)(Submit)

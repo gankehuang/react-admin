@@ -6,7 +6,8 @@ const userState = {
     name: '',
     avatar: '',
     message:''
-  }
+  },
+  modelState: ''
 }
 
 const user = (state = userState, action) => {
@@ -41,7 +42,9 @@ const user = (state = userState, action) => {
 const UIState = {
   collapsed: false,
   isMobile: false,
-  taglist:[]
+  taglist:[],
+  modelState: false,
+  itemDetail: ''
 }
 const UI = (state = UIState, action) => {
   switch (action.type) {
@@ -71,13 +74,23 @@ const UI = (state = UIState, action) => {
         taglist: [...state.taglist.filter(ele=>ele.path!==action.playload)]
       }
       break
-      case 'EMPTY_TAGLIST':
+    case 'EMPTY_TAGLIST':
       return {
           ...state,
           taglist: []
         }
       break
-
+    case 'MODEL_STATE':
+      return {
+          ...state,
+          modelState: action.playload
+      }
+      break
+    case 'CHANGE_DETAIL':
+      return {
+          ...state,
+          itemDetail: action.playload
+      }
     default:
       return state
       break

@@ -8,8 +8,8 @@ const SET_TOKEN = 'SET_TOKEN' // 设置token
 const SET_USERINFO = 'SET_USERINFO' // 设置用户信息
 const DELETE_TOKEN = 'DELETE_TOKEN' // 清除token
 
-
-
+const MODEL_STATE = 'MODEL_STATE' //表格模态框状态
+const CHANGE_DETAIL = 'CHANGE_DETAIL'  //详情
 
 
 
@@ -21,5 +21,7 @@ export {
   EMPTY_TAGLIST,
   SET_TOKEN,
   SET_USERINFO,
-  DELETE_TOKEN
+  DELETE_TOKEN,
+  MODEL_STATE,
+  CHANGE_DETAIL
 }
