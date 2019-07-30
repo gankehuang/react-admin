@@ -42,18 +42,20 @@ const MenuComponent = props => {
         menus.map(ele => {
           if(ele.children){
             return (
-              handleFilter(ele.permission) && <SubMenu key={ele.path}
-                  title={<span><Icon type={ele.icon} /><span>{ele.title}</span></span>}
-                                              >
-              {ele.children.map(subItem =>
-                handleFilter(subItem.permission) && <Menu.Item key={subItem.path}>
-                  <Link to={subItem.path}>
-                    {subItem.title}
-                  </Link>
-                </Menu.Item>
-              )}
-            </SubMenu>
-          )
+                handleFilter(ele.permission) && 
+                <SubMenu key={ele.path}
+                      title={<span><Icon type={ele.icon} /><span>{ele.title}</span></span>}
+                                                  >
+                  {ele.children.map(subItem =>
+                    handleFilter(subItem.permission) && 
+                    <Menu.Item key={subItem.path}>
+                      <Link to={subItem.path}>
+                        {subItem.title}
+                      </Link>
+                    </Menu.Item>
+                  )}
+                </SubMenu>
+            )
           }else {
               return (
                 handleFilter(ele.permission) && <Menu.Item key={ele.path}>

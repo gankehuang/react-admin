@@ -183,7 +183,7 @@ class SubmitForm extends React.Component {
             ],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="简介">
+        <Form.Item label="时间">
           {getFieldDecorator('Time', {
             rules: [
               {
@@ -246,7 +246,7 @@ class SubmitForm extends React.Component {
 
         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
           <Button htmlType="submit" type="primary">
-            编辑
+            保存
           </Button>
         </Form.Item>
       </Form>

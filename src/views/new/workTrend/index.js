@@ -4,7 +4,6 @@ import NewCommon from '../NewCommon'
 
 class workTrend extends Component {
 
-
   render() {
     return (
       <div>

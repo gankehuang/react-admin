@@ -18,9 +18,10 @@ class SiderComponent extends Component {
       >
         <div className="logo">
           <Icon
-              type="github"
+              style={{fontSize: '25px', marginTop: '20px'}} 
+              type="global"
           /> {
-            collapsed || <span style={{fontSize:'16px'}}> 长期性后台管理系统 </span>
+            collapsed || <span style={{fontSize:'16px'}}> &nbsp;&nbsp;长期性后台管理系统 </span>
           }
         </div>
         <Menu

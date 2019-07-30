@@ -5,6 +5,9 @@ import { Form, Icon, Input, Button } from 'antd';
 import { chageModelState, changeDetail } from '@/redux/actions'
 
 class search extends React.Component {
+  constructor(props){
+    super(props)
+  }
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -16,6 +19,7 @@ class search extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        this.props.fetch(values.Title)
       }
     });
   };
@@ -35,7 +39,12 @@ class search extends React.Component {
   }
   //批量删除
   batchDel = () => {
-
+      this.props.onClick()
+  }
+  //全部
+  all = () => {
+      this.props.form.resetFields()
+      this.props.fetch()
   }
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
@@ -61,7 +70,7 @@ class search extends React.Component {
             检索
           </Button>&nbsp;&nbsp;
           <Button type="primary" onClick={this.add}>添加</Button>&nbsp;&nbsp;
-          <Button type="primary">全部</Button>
+          <Button type="primary" onClick={this.all}>全部</Button>
         </Form.Item>
       </Form>
     );
