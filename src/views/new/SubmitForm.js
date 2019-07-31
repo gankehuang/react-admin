@@ -58,9 +58,6 @@ class SubmitForm extends React.Component {
         Time: data.Time,
         Recommend: data.Recommend + ''
       });
-     
-      
-      
   }
   //表单提交
   handleSubmit = e => {

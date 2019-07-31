@@ -43,17 +43,36 @@ const MenuComponent = props => {
           if(ele.children){
             return (
                 handleFilter(ele.permission) && 
-                <SubMenu key={ele.path}
-                      title={<span><Icon type={ele.icon} /><span>{ele.title}</span></span>}
-                                                  >
-                  {ele.children.map(subItem =>
-                    handleFilter(subItem.permission) && 
-                    <Menu.Item key={subItem.path}>
-                      <Link to={subItem.path}>
-                        {subItem.title}
-                      </Link>
-                    </Menu.Item>
-                  )}
+                <SubMenu key={ele.path} title={<span><Icon type={ele.icon} /><span>{ele.title}</span></span>}>
+                  {
+                    ele.children.map(subItem => {
+                      if(subItem.children){
+                        return(
+                          handleFilter(subItem.permission) && 
+                          <SubMenu key={subItem.path} title={<span><Icon type={subItem.icon} /><span>{subItem.title}</span></span>}>
+
+                            {subItem.children.map(item => 
+                              handleFilter(item.permission) && 
+                              <Menu.Item key={item.path}>
+                                <Link to={item.path}>
+                                  {item.title}
+                                </Link>
+                              </Menu.Item>
+                            )}
+
+                          </SubMenu>
+                        )
+                      }else{
+                        return(handleFilter(subItem.permission) && 
+                          <Menu.Item key={subItem.path}>
+                            <Link to={subItem.path}>
+                              {subItem.title}
+                            </Link>
+                          </Menu.Item>)
+                      }
+
+                    })
+                  }
                 </SubMenu>
             )
           }else {

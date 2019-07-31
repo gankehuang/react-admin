@@ -26,7 +26,7 @@ class newCommon extends Component {
     start: 0
   }
   componentDidMount() {
-    console.log(this.props)
+    //console.log(this.props)
   }
   componentWillMount() {
     this.fetch()

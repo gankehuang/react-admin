@@ -39,9 +39,9 @@ const Main = ({ location }) => {
 
               )
             }
-            <Redirect from='/'
+            {/* <Redirect from='/'
               to='/new/workTrend'
-            />
+            /> */}
             <Redirect from='/'
               to='/error/404'
             />
